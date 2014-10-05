@@ -1,0 +1,68 @@
+//getting the player's inputs
+key_right = keyboard_check(vk_right);
+key_left = -keyboard_check(vk_left);
+key_jump = keyboard_check(vk_up);
+
+//jump
+if (vsp < 10) vsp += grav;
+
+if (place_meeting(x,y+1,obj_platform))
+{
+    if (key_jump) vsp = -jumpSpeed;
+}
+
+//momentum based stop
+if key_right == 0 && key_left == 0 && hsp != 0
+{
+    if sign(hsp) == 1 && !place_meeting(x+1,y,obj_platform)
+    {
+        hsp -= 1;
+    }
+    if sign(hsp) == -1 && !place_meeting(x-1,y,obj_platform)
+    {
+        hsp += 1;
+    }
+}
+
+//movement
+if key_right == true 
+{
+    hsp += moveSpeed;
+    //horizontal collision
+    if (place_meeting(x + hsp,y,obj_platform))
+    {
+        while(!place_meeting(x+sign(hsp),y,obj_platform))
+        {
+            x += sign(hsp);
+        }
+        hsp = 0;
+    }
+}
+
+if key_left == true 
+{
+    hsp -= moveSpeed;
+    //horizontal collision
+    if (place_meeting(x - hsp,y,obj_platform))
+    {
+        while(!place_meeting(x-sign(hsp),y,obj_platform))
+        {
+            x -= sign(hsp);
+        }
+        hsp = 0;
+    }
+}
+
+//vertical collision
+if (place_meeting(x,y + vsp,obj_platform))
+{
+    while(!place_meeting(x,y+sign(vsp),obj_platform))
+    {
+        y += sign(vsp);
+    }
+    vsp = 0;
+}
+
+//actually move the object
+x += hsp;
+y += vsp;
