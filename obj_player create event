@@ -1,0 +1,9 @@
+//sets the animation speed
+image_speed = .2;
+//initialize variables
+grav = .2; //gravity
+hsp = 0; //horizontal speed
+vsp = 0; //vertical speed
+moveDir = 0;
+moveSpeed = 4; //how many pixels the player should move per step
+jumpSpeed = 4; //jumping velocity
